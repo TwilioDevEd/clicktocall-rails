@@ -1,0 +1,31 @@
+!!!  
+%html  
+  %head  
+    %title Click To Call Tutorial
+    %link{:rel => "icon", :type => "image/png", :href => "/img/favicon.png"}
+    %link{:rel => "stylesheet", :href => "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"}
+    %link{:rel => "stylesheet", :href => "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css", :type => "text/css"}
+    = stylesheet_link_tag 'application', :media => 'all'
+    
+  %body
+    .container
+      %h1 Click To Call
+      %p
+        Click To Call converts your website's users into engaged customers by creating an easy way for your customers to contact your sales and support teams right on your website.
+
+      %p Here's an example of how it's done!
+
+      %hr
+
+      // C2C contact form
+      .row
+        .col-md-12
+          %form{:id => "contactform", :role => 'form', :action => '#', :method => 'POST'}
+            .form-group
+              %h3 Call Sales
+              %p.help-block
+                Are you interested in impressing your friends and confounding your enemies? Enter your phone number below, and our team will contact you right away.
+            .form-group
+              %input.form-control{:type =>'text', :name => 'phone', :id => 'phoneNumber', :placeholder => '(651) 555-7889'}
+            %button{ :type => 'submit', :class => 'btn btn-default'} Contact Sales
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true

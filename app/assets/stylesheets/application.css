@@ -12,24 +12,6 @@
  *
  *= require_tree .
  *= require_self
+ *= require intl-phone/css/intlTelInput.css
  */
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
-body {
-  background:url(pattern-bg.jpg);
-  font-family: 'Roboto', sans-serif;
-  color:white;
-  -webkit-font-smoothing: antialiased;
-font-smooth: always;
--webkit-font-smoothing: subpixel-antialiased;
--webkit-text-stroke: 1px rgba(0,0,0,0.1)
-}
 
-#welcome-twilio {
-  width:500px;
-  margin: 20px auto;
-}
-
-h1 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 900;
-}
