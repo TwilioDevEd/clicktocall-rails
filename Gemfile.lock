@@ -59,6 +59,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.0)
     multi_json (1.10.1)
+    pg (0.17.1)
     phony (2.2.14)
     phony_rails (0.6.1)
       activesupport (>= 3.0)
@@ -130,6 +131,7 @@ DEPENDENCIES
   haml
   jbuilder (~> 2.0)
   jquery-rails
+  pg
   phony_rails
   rails (= 4.1.4)
   sass-rails (~> 4.0.3)

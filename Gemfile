@@ -8,6 +8,8 @@ gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+gem 'pg'
+
 gem 'haml'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
