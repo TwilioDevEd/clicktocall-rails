@@ -8,9 +8,13 @@ class TwilioController < ApplicationController
     :connect
   ]
 
-  # Render home page, embedding the Twilio number on the page (for mobile)
+  # Define our Twilio credentials as instance variables for later use
+  @twilio_sid = ENV['TWILIO_ACCOUNT_SID']
+  @twilio_token = ENV['TWILIO_AUTH_TOKEN']
+  @twilio_number = ENV['TWILIO_NUMBER']
+
+  # Render home page
   def index
-    @twilio_number = ENV['TWILIO_NUMBER']
   	render 'index'
   end
 
@@ -22,10 +26,10 @@ class TwilioController < ApplicationController
     # Validate contact
     if contact.valid?
 
-      @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+      @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
       # Connect an outbound call to the number submitted
       @call = @client.account.calls.create(
-        :from => ENV['TWILIO_NUMBER'],
+        :from => @twilio_number,
         :to => contact.phone,
         :url => "#{root_url}connect" # Fetch instructions from this URL when the call connects
       )
@@ -43,14 +47,14 @@ class TwilioController < ApplicationController
     end
   end
 
-  # // This URL contains instructions for the call that is connected with a lead
-  # // that is using the web form.  These instructions are used either for a
-  # // direct call to our Twilio number (the mobile use case) or 
+  # This URL contains instructions for the call that is connected with a lead
+  # that is using the web form.  These instructions are used either for a
+  # direct call to our Twilio number (the mobile use case) or 
   def connect
 
-    # // Our response to this request will be an XML document in the "TwiML"
-    # // format. Our Ruby library provides a helper for generating one
-    # // of these documents
+    # Our response to this request will be an XML document in the "TwiML"
+    # format. Our Ruby library provides a helper for generating one
+    # of these documents
     response = Twilio::TwiML::Response.new do |r|
       r.Say 'Thanks for your interest in 5 5 5 Main Street! I will connect you to an agent now.', :voice => 'alice'
       r.Dial ENV['AGENT_NUMBER']
@@ -70,7 +74,7 @@ class TwilioController < ApplicationController
     twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
 
     # Helper from twilio-ruby to validate requests. 
-    @validator = Twilio::Util::RequestValidator.new(ENV['TWILIO_AUTH_TOKEN'])
+    @validator = Twilio::Util::RequestValidator.new(@twilio_token)
  
     # the POST variables attached to the request (eg "From", "To")
     # Twilio requests only accept lowercase letters. So scrub here:
