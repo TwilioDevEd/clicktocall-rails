@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Click To Call Tutorial</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" type="text/css">
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Click To Call</h1>
+      <p>Click To Call converts your website's users into engaged customers by creating an easy way for your customers to contact your sales and support teams right on your website.</p>
+      <p>Here's an example of how it's done!</p>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <form id="contactform" role="form" action="#" method="POST">
+            <div class="form-group">
+              <h3>Call Sales</h3>
+              <p class="help-block">
+                Are you interested in impressing your friends and confounding your enemies? Enter your phone number below, and our team will contact you right away.
+              </p>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="phone" id="phoneNumber" placeholder="(651) 555-7889">
+            </div>
+            <button type="submit" class="btn btn-default">Contact Sales</button>
+          </form>
+
+        </div>
+      </div>
+	  </div><!-- /page -->
+	</body>
+  <%= javascript_link_tag 'application', 'data-turbolinks-track' => true %>
+</html>
