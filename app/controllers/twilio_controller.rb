@@ -2,8 +2,8 @@ require 'twilio-ruby'
 require 'haml'
 
 class TwilioController < ApplicationController
-  include Webhookify
-
+  # Before we allow the incoming request to connect, verify
+  # that it is a Twilio request
   before_filter :authenticate_twilio_request, :only => [
     :connect
   ]
@@ -59,9 +59,10 @@ class TwilioController < ApplicationController
       r.Say 'Thanks for your interest in 5 5 5 Main Street! I will connect you to an agent now.', :voice => 'alice'
       r.Dial ENV['AGENT_NUMBER']
     end
-    # Defined in webhookify.rb. Renders XML page.
-    set_header
-    render_twiml response
+    
+    # Render response as xml
+    response.headers["Content-Type"] = "text/xml"
+    render text: response.text
   end
 
 
