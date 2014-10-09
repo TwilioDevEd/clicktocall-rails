@@ -1,5 +1,4 @@
 require 'twilio-ruby'
-require 'haml'
 
 class TwilioController < ApplicationController
   # Before we allow the incoming request to connect, verify
