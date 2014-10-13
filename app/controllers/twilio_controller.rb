@@ -50,16 +50,12 @@ class TwilioController < ApplicationController
   # that is using the web form.  These instructions are used either for a
   # direct call to our Twilio number (the mobile use case) or 
   def connect
-
     # Our response to this request will be an XML document in the "TwiML"
     # format. Our Ruby library provides a helper for generating one
     # of these documents
     response = Twilio::TwiML::Response.new do |r|
       r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', :voice => 'alice'
     end
-    
-    # Render response as xml
-    response.headers["Content-Type"] = "text/xml"
     render text: response.text
   end
 
