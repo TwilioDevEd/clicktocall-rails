@@ -55,8 +55,7 @@ class TwilioController < ApplicationController
     # format. Our Ruby library provides a helper for generating one
     # of these documents
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Thanks for your interest in 5 5 5 Main Street! I will connect you to an agent now.', :voice => 'alice'
-      r.Dial ENV['AGENT_NUMBER']
+      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', :voice => 'alice'
     end
     
     # Render response as xml
