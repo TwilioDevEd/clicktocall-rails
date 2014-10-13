@@ -3,7 +3,7 @@ $(function() {
     $('#phoneNumber').intlTelInput({
         responsiveDropdown: true,
         autoFormat: true,
-        utilsScript: '/vendor/intl-phone/libphonenumber/build/utils.js'
+        utilsScript: 'assets/intl-phone/libphonenumber/build/utils.js'
     });
     var $form = $('#contactform'),
         $submit = $('#contactform input[type=submit]');
