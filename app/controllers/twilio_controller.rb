@@ -73,7 +73,7 @@ class TwilioController < ApplicationController
     twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
 
     # Helper from twilio-ruby to validate requests. 
-    @validator = Twilio::Util::RequestValidator.new(@twilio_token)
+    @validator = Twilio::Util::RequestValidator.new(@@twilio_token)
  
     # the POST variables attached to the request (eg "From", "To")
     # Twilio requests only accept lowercase letters. So scrub here:
