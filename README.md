@@ -1,7 +1,91 @@
-## Welcome to the Twilio Rails Barn
+# Click to Call Rails
 
-This is the rails project that houses all of the code samples and production-ready solution areas using Twilio's platform.
+An example application implementing Click to Call using Twilio.  For a
+step-by-step tutorial, [visit this link](https://twilio.com/docs/howto/click-to-call).
 
-To get up and running simply check out this repo and run `bundle install && rails server`.
+Deploy this example app to Heroku now!
 
-Visit [localhost:3000](http://localhost:3000) to see the welcome page and a list of solution areas.
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
+
+## Installation
+
+Step-by-step on how to deploy, configure and develop on this example app.
+
+### Fastest Deploy
+
+Use Heroku to deploy this app immediately:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
+
+### Getting Started 
+
+1) Grab latest source
+<pre>
+git clone git://github.com/TwilioDevEd/clicktocall-rails.git 
+</pre>
+
+2) Navigate to folder and create new Heroku Cedar app
+<pre>
+heroku create
+</pre>
+
+3) Deploy to Heroku
+<pre>
+git push heroku master
+</pre>
+
+4) Scale your dynos
+<pre>
+heroku scale web=1
+</pre>
+
+5) Visit the home page of your new Heroku app to see your newly configured app!
+<pre>
+heroku open
+</pre>
+
+
+### Configuration
+
+#### Setting Your Environment Variables
+
+Are you using a bash shell? Use echo $SHELL to find out. For a bash shell, using the Gmail example, edit the ~/.bashrc or ~/.bashprofile file and add:
+<pre>
+export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
+export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
+export TWILIO_APP_SID=APzzzzzzzzzzzzzzzzzz
+export TWILIO_CALLER_ID=+15556667777
+</pre>
+
+Are you using Windows or Linux? You can read how to set variables [here](https://www.java.com/en/download/help/path.xml).
+
+### Development
+
+Getting your local environment setup to work with this app is similarly
+easy.  After you configure your app with the steps above, use this guide to
+get going locally:
+
+1) Install the dependencies.
+<pre>
+bundle install
+</pre>
+
+2) Launch local development webserver
+<pre>
+rails server
+</pre>
+
+3) Open browser to [http://localhost:3000](http://localhost:3000).
+
+4) Tweak away on `app/controllers/twilio_controller.rb`.
+
+## Meta 
+
+* No warranty expressed or implied.  Software is as is. Diggity.
+* [MIT License](http://www.opensource.org/licenses/mit-license.html)
+* Lovingly crafted by Twilio Developer Education.
+
+
+[![githalytics.com
+alpha](https://cruel-carlota.pagodabox.com/33a5ddd61dd29dd933422bca2b3dfa0e
+"githalytics.com")](http://githalytics.com/TwilioDevEd/clicktocall-rails)
