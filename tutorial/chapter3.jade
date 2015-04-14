@@ -1,0 +1,90 @@
+.step(data-title='The Rails Controller', data-file='app/controllers/twilio_controller.rb')
+  :markdown
+    ## The Rails Controller - Overview
+
+    In Rails, the controller is really the meat of an application. If we were to spec out our controller it would need to do the following things:
+
+    * Render the home page with the form on it
+    * Create an endpoint that our form can post to
+    * Initiate a phone call to the user's phone number
+    * Create an endpoint that will host our Twilio instructions (TwiML)
+    * (Optional) Check that all incoming requests are from Twilio
+
+    In the next chapter let's take a look at this part of application in more detail.
+.step(data-title="Validate the Data", data-file='app/controllers/twilio_controller.rb', data-highlight="20-27")
+  :markdown
+    ## Validating the User Data
+
+    Before our controller can make a phone call we need to check that the data it is receiving is valid. In our case we want to make sure both a _Name_ and a valid _Phone Number_ are present. The easiest way to do this in Rails is to create a Model from the data and then validate that model. Let's quickly take a look at what this looks like.
+
+    ``` ruby
+    # Simple model to handle validation
+    class Contact
+        include ActiveModel::Validations
+        attr_accessor :name, :phone
+        validates_presence_of :name, :phone
+        validates :phone, :phony_plausible =&gt; true
+    end
+    ```
+
+    Creating a **Contact** model allows us to validate the phone number using the [Phony][phony] gem. Additionally this sort of workflow will scale nicely if you decide to store these Contacts in a database.
+
+    Now all we need to do to validate the model is call .valid? on the object. Once we've got an all clear we can make a phone call.
+
+    [phony]: https://github.com/joost/phony_rails
+
+
+.step(data-title='Making a Phone Call', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
+  :markdown
+    ## Making a phone call
+    Making a phone call using Twilio in rails is very easy. 
+
+    First we initiate a @client object with our Account SID and Auth Token. This is essentially our rubyfied REST API handler, which we could use to send SMS, generate TwiML or a myriad of other things. But for now we just need to create a phone call.
+
+    Next we'll use the REST API to [make an outgoing phone call][voice] which requires we pass it a From number, To number and the [URL Parameter][url] that tells Twilio what to do after it connects the call to our user. In this case Twilio needs to dial in the Agent once the call has been placed. We'll discuss this more in the next step.
+
+    Assuming we have succesfully connected our user to our agent, we need to send a response to the browser telling it that all went well. This is the message that our ajax handler was expecting.
+
+    [voice]: /docs/api/rest/making-calls
+    [url]: /docs/api/rest/making-calls#url-parameter
+
+.step(data-title='Generating TwiML', data-file='app/controllers/twilio_controller.rb', data-highlight='52-62')
+  :markdown
+    ## TwiML Instructions
+    TwiML is a set of [simple verbs][verbs], written in XML, that Twilio reads as instructions. In this case our instructions inform Twilio to simply SAY something to the user and then DIAL in an agent. 
+
+    In order to make writing TwiML as easy as possible, many of the helper libraries have methods that generate TwiML for you. In this case we use twilio-ruby to create a TwiML response that will say something and then Dial in the agent. 
+
+    [verbs]: /docs/api/twiml#verbs
+    [url]: /docs/api/rest/making-calls#url-parameter
+
+.step(data-title='Add Routes', data-file="config/routes.rb")
+  :markdown
+    ## Create the Routes
+    Before we run our rails app, we should probably create some routes. Since both of our custom functions are expecting HTTP POST requests, be sure to define them as so in the routes file.
+
+    Now we're ready to deploy our Rails app to the world.
+
+.step(data-title="Deploying your App")
+  :markdown
+    ## Deploying
+    The final step to a working Click-to-Call use case is deploying the application we just wrote. If you'd like the complete code base, including request authentication and test suite, simply clone or fork it from [github][github].
+
+    The two easiest choices for deployment are Heroku and Ngrok.
+
+    ## ngrok
+    [Ngrok][ngrok] is a free tool that allows you to quickly create a tunnel to your local environment for testing purposes. It's extremely easy to install and run. Read more here.
+
+    ## Heroku
+    Heroku allows you to quickly deploy production-ready applications to servers in the cloud [using git][herokugit] . It supports most languages/frameworks and it's free. To deploy to heroku now simply click the 'deploy now' button up at the top of this page.
+
+    [github]: https://github.com/TwilioDevEd/rails-barn/tree/click-to-call
+    [ngrok]: https://ngrok.com/
+    [herokugit]: https://devcenter.heroku.com/articles/git
+
+.step(data-title='Finish')
+  :markdown
+    ## All Done
+    Congrats! You just learned how to build a working Click-to-Call solution. To improve upon this you could add two-factor authentication to your app, or create an interactive survey to follow-up with your customer.
+
+    Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) to let us know what you think.

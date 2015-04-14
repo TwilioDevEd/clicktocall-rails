@@ -1,0 +1,37 @@
+.step(data-title='Implementation')
+  :markdown
+    ## Implementation
+
+    Now that we've got our environment set up, we can implement our click-to-call
+    feature.  
+
+    First, we'll need to create a HTML page and a form that we'll use to get the User's phone number. Then, we'll build a controller to receive the user's phone number and place a
+    call using Twilio's REST API.  Finally, we'll need our app to provide TwiML
+    instructions to connect the user to our sales or support team.
+
+    Let's walk through that code together.
+.step(data-title="A simple web form", data-file='app/views/twilio/index.erb', data-highlight="20-31", data-language="htmlembedded")
+  :markdown
+    ## The Web Form
+
+    The first step in creating a real click-to-call solution is by building the form that your user will see on the web. No need to overthink this, the real goal is to POST the User's name and phone number to your controller. 
+
+    We've also added a prompt in case the User is on a smart phone that will allow them to simply click on the telephone number and connect to an agent. 
+
+    So what does this form need to have? An input for user name, an input for the phone number and a submit button. Since the page really doesn't need to change after submit we decided to implement the POST action via Ajax using jQuery. Next, let's take a look at how we are implementing this AJAX form submit.
+
+.step(data-title='Submit the form', data-file='app/assets/javascripts/app.js', data-highlight="11-30")
+  :markdown
+    ## Submit the form with Ajax
+
+    To make the click to call feature more seamless we used [Ajax](https://developer.mozilla.org/en-US/docs/AJAX) to send the form asynchronously. This code shows one way you could implement this functionality using [jQuery](http://jquery.org).
+
+    Functionally this code does the following:
+
+    * Watches for the user "submitting" the form element
+    * Submits that form data to our controller
+    * Let's the user know if the submission was successful or not
+
+    This is a pretty common implementation of jQuery's $.ajax() method, but notice that we are returning the response message when the call has connected.
+
+    Now that we have the front-end done, let's build a controller that will receive this data and call the user.
