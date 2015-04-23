@@ -17,13 +17,13 @@
 
     Before our controller can make a phone call we need to check that the data it is receiving is valid. In our case we want to make sure both a _Name_ and a valid _Phone Number_ are present. The easiest way to do this in Rails is to create a Model from the data and then validate that model. Let's quickly take a look at what this looks like.
 
-    ``` ruby
+    ```
     # Simple model to handle validation
     class Contact
         include ActiveModel::Validations
         attr_accessor :name, :phone
         validates_presence_of :name, :phone
-        validates :phone, :phony_plausible =&gt; true
+        validates :phone, :phony_plausible => true
     end
     ```
 
