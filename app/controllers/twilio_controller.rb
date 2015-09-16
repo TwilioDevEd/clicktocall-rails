@@ -27,7 +27,7 @@ class TwilioController < ApplicationController
 
       @client = Twilio::REST::Client.new @@twilio_sid, @@twilio_token
       # Connect an outbound call to the number submitted
-      @call = @client.account.calls.create(
+      @call = @client.calls.create(
         :from => @@twilio_number,
         :to => contact.phone,
         :url => "#{root_url}connect" # Fetch instructions from this URL when the call connects
