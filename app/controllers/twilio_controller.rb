@@ -17,11 +17,11 @@ class TwilioController < ApplicationController
   	render 'index'
   end
 
-  # Hande a POST from our web form and connect a call via REST API
+  # Handle a POST from our web form and connect a call via REST API
   def call
     contact = Contact.new
     contact.phone = params[:phone]
-   
+
     # Validate contact
     if contact.valid?
 
@@ -48,7 +48,7 @@ class TwilioController < ApplicationController
 
   # This URL contains instructions for the call that is connected with a lead
   # that is using the web form.  These instructions are used either for a
-  # direct call to our Twilio number (the mobile use case) or 
+  # direct call to our Twilio number (the mobile use case) or
   def connect
     # Our response to this request will be an XML document in the "TwiML"
     # format. Our Ruby library provides a helper for generating one
@@ -61,22 +61,22 @@ class TwilioController < ApplicationController
 
 
   # Authenticate that all requests to our public-facing TwiML pages are
-  # coming from Twilio. Adapted from the example at 
+  # coming from Twilio. Adapted from the example at
   # http://twilio-ruby.readthedocs.org/en/latest/usage/validation.html
   # Read more on Twilio Security at https://www.twilio.com/docs/security
   private
   def authenticate_twilio_request
     twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
 
-    # Helper from twilio-ruby to validate requests. 
+    # Helper from twilio-ruby to validate requests.
     @validator = Twilio::Util::RequestValidator.new(@@twilio_token)
- 
+
     # the POST variables attached to the request (eg "From", "To")
     # Twilio requests only accept lowercase letters. So scrub here:
     post_vars = params.reject {|k, v| k.downcase == k}
- 
+
     is_twilio_req = @validator.validate(request.url, post_vars, twilio_signature)
- 
+
     unless is_twilio_req
       render :xml => (Twilio::TwiML::Response.new {|r| r.Hangup}).text, :status => :unauthorized
       false
