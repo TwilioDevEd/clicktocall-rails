@@ -17,11 +17,11 @@ Use Heroku to deploy this app immediately:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
 
-### Getting Started 
+### Getting Started
 
 1) Grab latest source
 <pre>
-git clone git://github.com/TwilioDevEd/clicktocall-rails.git 
+git clone git://github.com/TwilioDevEd/clicktocall-rails.git
 </pre>
 
 2) Navigate to folder and create new Heroku Cedar app
@@ -49,7 +49,7 @@ heroku open
 
 #### Setting Your Environment Variables
 
-Are you using a bash shell? Use echo $SHELL to find out. For a bash shell, using the Gmail example, edit the ~/.bashrc or ~/.bashprofile file and add:
+Are you using a bash shell? Use echo $SHELL to find out. For a bash shell edit the ~/.bashrc or ~/.bashprofile file and add:
 <pre>
 export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
 export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
@@ -78,7 +78,7 @@ rails server
 
 4) Tweak away on `app/controllers/twilio_controller.rb`.
 
-## Meta 
+## Meta
 
 * No warranty expressed or implied.  Software is as is. Diggity.
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)
