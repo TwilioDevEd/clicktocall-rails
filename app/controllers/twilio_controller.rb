@@ -14,7 +14,7 @@ class TwilioController < ApplicationController
 
   # Render home page
   def index
-  	render 'index'
+    render 'index'
   end
 
   # Handle a POST from our web form and connect a call via REST API
