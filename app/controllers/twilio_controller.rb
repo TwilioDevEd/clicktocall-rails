@@ -47,8 +47,7 @@ class TwilioController < ApplicationController
   end
 
   # This URL contains instructions for the call that is connected with a lead
-  # that is using the web form. These instructions are used either for a
-  # direct call to our Twilio number (the mobile use case) or
+  # that is using the web form.
   def connect
     # Our response to this request will be an XML document in the "TwiML"
     # format. Our Ruby library provides a helper for generating one
