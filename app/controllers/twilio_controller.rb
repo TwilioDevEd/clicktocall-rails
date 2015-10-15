@@ -33,7 +33,7 @@ class TwilioController < ApplicationController
         :url => connect_url # Fetch instructions from this URL when the call connects
       )
 
-      # Lets respond to the ajax call with some positive reinforcement
+      # Let's respond to the ajax call with some positive reinforcement
       @msg = { :message => 'Phone call incoming!', :status => 'ok' }
 
     else
@@ -47,7 +47,7 @@ class TwilioController < ApplicationController
   end
 
   # This URL contains instructions for the call that is connected with a lead
-  # that is using the web form.  These instructions are used either for a
+  # that is using the web form. These instructions are used either for a
   # direct call to our Twilio number (the mobile use case) or
   def connect
     # Our response to this request will be an XML document in the "TwiML"
