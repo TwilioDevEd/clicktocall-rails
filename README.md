@@ -16,7 +16,7 @@ Use Heroku to deploy this app immediately:
 
 ### Getting Started
 
-1) Grab latest source
+1) Grab the latest source
 <pre>
 git clone git://github.com/TwilioDevEd/clicktocall-rails.git
 </pre>
@@ -53,15 +53,15 @@ export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
 export TWILIO_NUMBER=+15556667777
 </pre>
 
-Are you using Windows or Linux? You can read how to set variables [here](https://www.java.com/en/download/help/path.xml).
+Are you using Windows or Linux? You can read more on how to set variables [here](https://www.java.com/en/download/help/path.xml).
 
 ### Development
 
-Getting your local environment setup to work with this app is similarly
-easy.  After you configure your app with the steps above, use this guide to
+Getting your local environment setup to work with this app is easy.  
+After you configure your app with the steps above use this guide to
 get going locally:
 
-1) Install the dependencies.
+1) Install the dependencies
 <pre>
 bundle install
 </pre>
