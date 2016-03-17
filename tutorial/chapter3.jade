@@ -15,14 +15,14 @@
   :markdown
     ## Validating the User Data
 
-    Before our controller can make a phone call we need to check that the data it is receiving is valid. In our case we want to make sure both a _Name_ and a valid _Phone Number_ are present. The easiest way to do this in Rails is to create a Model from the data and then validate that model. Let's quickly take a look at what this looks like.
+    Before our controller can make a phone call we need to check that the data it is receiving is valid. In our case we want to make sure that a valid _Phone Number_ is present. The easiest way to do this in Rails is to create a Model from the data and then validate that model. Let's quickly take a look at what this looks like.
 
     ```
     # Simple model to handle validation
     class Contact
         include ActiveModel::Validations
-        attr_accessor :name, :phone
-        validates_presence_of :name, :phone
+        attr_accessor :phone
+        validates_presence_of :phone
         validates :phone, :phony_plausible => true
     end
     ```
@@ -87,4 +87,6 @@
     ## All Done
     Congrats! You just learned how to build a working Click-to-Call solution. To improve upon this you could add two-factor authentication to your app, or create an interactive survey to follow-up with your customer.
 
-    Thanks for checking out this tutorial! If you have any feedback to share with us, we'd love to hear it. Tweet [@twilio](http://twitter.com/twilio) to let us know what you think.
+    Thanks for checking out this tutorial! If you have any feedback
+    to share with us, we'd love to hear it.
+    [Contact support](//www.twilio.com/help/contact) to let us know what you think.
