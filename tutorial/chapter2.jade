@@ -1,15 +1,3 @@
-.step(data-title='Implementation')
-  :markdown
-    ## Implementation
-
-    Now that we've got our environment set up, we can implement our click-to-call
-    feature.  
-
-    First, we'll need to create a HTML page and a form that we'll use to get the User's phone number. Then, we'll build a controller to receive the user's phone number and place a
-    call using Twilio's REST API.  Finally, we'll need our app to provide TwiML
-    instructions to connect the user to our sales or support team.
-
-    Let's walk through that code together.
 .step(data-title="A simple web form", data-file='app/views/twilio/index.erb', data-highlight="20-31", data-language="htmlembedded")
   :markdown
     ## The Web Form
@@ -34,4 +22,4 @@
 
     This is a pretty common implementation of jQuery's $.ajax() method, but notice that we are returning the response message when the call has connected.
 
-    Now that we have the front-end done, let's build a controller that will receive this data and call the user.
+    Now that we have the front end done lets build the back end that will receive this data and call the user.
