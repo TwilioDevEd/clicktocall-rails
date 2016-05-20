@@ -31,90 +31,116 @@
       [dial]: /docs/api/twiml/dial
       [say]:  /docs/api/twiml/say
 
+      ---
 
-.step(data-title='Environment', data-file='app/controllers/twilio_controller.rb', data-highlight="10-13")
-  :markdown
-    ## Application Configuration
+      **See Also:**
+      * [Twilio Ruby Helper Library](//www.twilio.com/docs/ruby/install)
 
-    To create our click-to-call application we need to setup our environment first.
+  .step(data-title='Environment', data-file='app/controllers/twilio_controller.rb', data-highlight="10-13")
+    :markdown
+      ## Environment
 
-    Let's put our Twilio credentials in a place where our application can access them. For the
-    purposes of this tutorial we'll place them as environment variables that our application can read.
+      To create our click-to-call application we need to setup our environment first.
 
-    You can find your Twilio credentials in your [Account Dashboard](/user/account).
+      Let's put our Twilio credentials in a place where our application can access them. For the
+      purposes of this tutorial we'll place them as environment variables that our application can read.
 
-    For more instructions on how to run the application refer to the [app's
-    readme file](//github.com/TwilioDevEd/clicktocall-rails/blob/master/README.md).
+      You can find your Twilio credentials in your [Account Dashboard](//www.twilio.com/user/account).
 
-.step(data-title="The Web Form", data-file='app/views/twilio/index.erb', data-highlight="20-31")
-  :markdown
-    ## The Web Form
+      For more instructions on how to run the application refer to the [app's
+      readme file](//github.com/TwilioDevEd/clicktocall-rails/blob/master/README.md).
 
-    The first step on creating a real click-to-call solution is by building the form that your
-    user needs to fill on the web. No need to overthink this, the real goal is to POST the User's name
-    and phone number to your controller.
+  .step(data-title="The Web Form", data-file='app/views/twilio/index.erb', data-highlight="20-31")
+    :markdown
+      ## The Web Form
 
-    So what information does this form need? An input for the phone number and
-    a submit button. Since the page doesn't need to render new content after clicking
-    on submit, we decided to implement the POST action via Ajax using jQuery.
-    Let's take a look at it.
+      The first step on creating a real click-to-call solution is by building the form that your
+      user needs to fill on the web. No need to overthink this, the real goal is to POST the User's
+      phone number to your controller.
 
-.step(data-title='Submit the form', data-file='app/assets/javascripts/app.js', data-highlight="11-30")
-  :markdown
-    ## Submit the Form
+      So what information does this form need? An input for the phone number and
+      a submit button. Since the page doesn't need to render new content after clicking
+      on submit, we decided to implement the POST action via Ajax using jQuery.
+      Let's take a look at it.
 
-    To make the click to call feature more seamless we used [Ajax](https://developer.mozilla.org/en-US/docs/AJAX) to send the form asynchronously. This code shows one way you could implement this functionality using [jQuery](http://jquery.org).
+  .step(data-title='Submit the Form', data-file='app/assets/javascripts/app.js', data-highlight="11-30")
+    :markdown
+      ## Submit the Form
 
-    Functionally this code does the following:
+      To make the click to call feature more seamless we used [Ajax](https://developer.mozilla.org/en-US/docs/AJAX) to send the form asynchronously. This code shows one way you could implement this functionality using [jQuery](http://jquery.org).
 
-    * Watches for the user "submitting" the form element
-    * Submits that form data to our controller
-    * Let's the user know if the submission was successful or not
+      Functionally this code does the following:
 
-    This is a pretty common implementation of jQuery's $.ajax() method, but notice that we are returning the response message when the call has connected.
+      * Watches for the user "submitting" the form element.
+      * Submits that form data to our controller.
+      * Let's the user know if the submission was successful or not.
 
-    Now that we have the front-end done, let's build a controller that will receive this data and call the user.
+      This is a pretty common implementation of jQuery's $.ajax() method, but notice that we are returning the response message when the call has connected.
 
-.step(data-title='Initiate Client Object', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
-  :markdown
-    ## Initiate Client Object
+      Now that we have the front-end done, let's build a controller that will receive this data and call the user.
 
-    First we initiate a `@client` object with our Account SID and Auth Token. This is essentially our Ruby REST API handler, which we could use to send SMS or a myriad of other things. But for
-    now we just need it to get access to an `account.calls` which is the object that we're going to use to create phone calls.
+  .step(data-title='Initiate Client Object', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
+    :markdown
+      ## Initiate Client Object
 
-.step(data-title='Making a Phone Call', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
-  :markdown
-    ## Making a Phone Call
+      First we initiate a `@client` object with our Account SID and Auth Token. This is essentially our Ruby REST API handler, which we could use to send SMS or a myriad of other things. But for
+      now we just need it to get access to an `account.calls` which is the object that we're going to use to create phone calls.
 
-    Next we'll use the REST API to [make an outgoing phone call][voice] which requires we pass it a From number, To number and the [URL Parameter][url] that tells Twilio what to do after it connects the call to our user. In this case Twilio needs to dial in the Agent once the call has been placed. We'll discuss this more in the next step.
+  .step(data-title='Making a Phone Call', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
+    :markdown
+      ## Making a Phone Call
 
-    [voice]: /docs/api/rest/making-calls
-    [url]: /docs/api/rest/making-calls#url-parameter
+      Next we'll use the REST API to [make an outgoing phone call][voice] which
+      requires us to pass a `From` number, `To` number and the [URL Parameter][url]
+      that tells Twilio what to do after it connects the call to our user. In this case
+      Twilio needs to dial in the Agent once the call has been placed. We'll discuss this
+      more in the next step.
 
-.step(data-title='The connect endpoint', data-file='app/controllers/twilio_controller.rb', data-highlight="49-60")
-  :markdown
+      [voice]: /docs/api/rest/making-calls
+      [url]: /docs/api/rest/making-calls#url-parameter
+
+  .step(data-title='The connect endpoint', data-file='app/controllers/twilio_controller.rb', data-highlight="49-60")
+    :markdown
       ## The connect endpoint
 
       Twilio makes a request to our application when the call is created using the REST API. This
-      means that we need to create an endpoint that is publicly available for internet requests.
+      means that we need to create an endpoint that is publicly available for Internet requests.
 
-.step(data-title='Generating TwiML', data-file='app/controllers/twilio_controller.rb', data-highlight='57')
-  :markdown
-    ## Generating TwiML
+  .step(data-title='Validating Twilio Request', data-file='app/controllers/twilio_controller.rb',
+    data-highlight='68-84')
+    :markdown
+      ## Validating Twilio Request
 
-    TwiML is a set of [simple verbs][verbs] written in XML that Twilio reads as instructions.
-    In this case our instructions inform Twilio to simply SAY something to the user. If we wanted
-    to connect the user to a real support agent, we would have to add a
-    [Dial verb](//www.twilio.com/docs/api/twiml/dial) that specifies the support agent number
-    so the customer can talk to him/her.
+      TwiML sometimes can contain sensible information such as phone numbers, so it's vulnerable
+      because anyone on the Internet can make a request to this end point, therefore accessing our TwiML.
+      That is why we need to check if the request is made by Twilio servers before doing any operation
+      on the Connect endpoint.
 
-    In order to make writing TwiML easy, many of the helper libraries have methods that generate
-    TwiML for you. In this case we use twilio-ruby to create a TwiML response that will instruct
-    Twilio to say something.
+      The `authenticate_twilio_request` method provides a mechanism to confirm that the request your application is receiving,
+      is actually coming from Twilio.
 
-    [verbs]: //www.twilio.com/docs/api/twiml#verbs
+      ---
 
-.step(data-title='Where to Next?')
+      **See Also:**
+      * [Twilio Request Validator](http://twilio-ruby.readthedocs.io/en/latest/usage/validation.html)
+
+  .step(data-title='Generating TwiML', data-file='app/controllers/twilio_controller.rb', data-highlight='57')
+    :markdown
+      ## Generating TwiML
+
+      TwiML is a set of [simple verbs][verbs] written in XML that Twilio reads as instructions.
+      In this case our instructions inform Twilio to simply SAY something to the user. If we wanted
+      to connect the user to a real support agent, we would have to add a
+      [Dial verb](//www.twilio.com/docs/api/twiml/dial) that specifies the support agent number
+      so the customer can talk to him/her.
+
+      In order to make writing TwiML easy, many of the helper libraries have methods that generate
+      TwiML for you. In this case we use twilio-ruby to create a TwiML response that will instruct
+      Twilio to say something.
+
+      [verbs]: //www.twilio.com/docs/api/twiml#verbs
+
+  .step(data-title='Where to Next?')
     :markdown
       ## Where to next?
 
