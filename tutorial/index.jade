@@ -63,9 +63,9 @@
       on submit, we decided to implement the POST action via Ajax using jQuery.
       Let's take a look at it.
 
-  .step(data-title='Submit the Form', data-file='app/assets/javascripts/app.js', data-highlight="11-30")
+  .step(data-title='Submitting the Form', data-file='app/assets/javascripts/app.js', data-highlight="11-30")
     :markdown
-      ## Submit the Form
+      ## Submitting the Form
 
       To make the click to call feature more seamless we used [Ajax](https://developer.mozilla.org/en-US/docs/AJAX) to send the form asynchronously. This code shows one way you could implement this functionality using [jQuery](http://jquery.org).
 
@@ -73,18 +73,18 @@
 
       * Watches for the user "submitting" the form element.
       * Submits that form data to our controller.
-      * Let's the user know if the submission was successful or not.
+      * Lets the user know if the submission was successful or not.
 
       This is a pretty common implementation of jQuery's $.ajax() method, but notice that we are returning the response message when the call has connected.
 
       Now that we have the front-end done, let's build a controller that will receive this data and call the user.
 
-  .step(data-title='Initiate Client Object', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
+  .step(data-title='Initiating the Client Object', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
     :markdown
-      ## Initiate Client Object
+      ## Initiating the Client Object
 
       First we initiate a `@client` object with our Account SID and Auth Token. This is essentially our Ruby REST API handler, which we could use to send SMS or a myriad of other things. But for
-      now we just need it to get access to an `account.calls` which is the object that we're going to use to create phone calls.
+      now we just need it to get access to an `account.calls`, which is the object that we're going to use to create phone calls.
 
   .step(data-title='Making a Phone Call', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
     :markdown
@@ -93,8 +93,8 @@
       Next we'll use the REST API to [make an outgoing phone call][voice] which
       requires us to pass a `From` number, `To` number and the [URL Parameter][url]
       that tells Twilio what to do after it connects the call to our user. In this case
-      Twilio needs to dial in the Agent once the call has been placed. We'll discuss this
-      more in the next step.
+      Twilio needs to dial in the Agent once the call has been placed. We'll discuss more
+      about it in the next step.
 
       [voice]: /docs/api/rest/making-calls
       [url]: /docs/api/rest/making-calls#url-parameter
@@ -106,13 +106,13 @@
       Twilio makes a request to our application when the call is created using the REST API. This
       means that we need to create an endpoint that is publicly available for Internet requests.
 
-  .step(data-title='Validating Twilio Request', data-file='app/controllers/twilio_controller.rb',
+  .step(data-title='Validating a Twilio Request', data-file='app/controllers/twilio_controller.rb',
     data-highlight='68-84')
     :markdown
-      ## Validating Twilio Request
+      ## Validating a Twilio Request
 
       TwiML sometimes can contain sensible information such as phone numbers, so it's vulnerable
-      because anyone on the Internet can make a request to this end point, therefore accessing our TwiML.
+      because anyone on the Internet can make a request to this end point, therefore access our TwiML.
       That is why we need to check if the request is made by Twilio servers before doing any operation
       on the Connect endpoint.
 
@@ -162,6 +162,6 @@
 
       ### Did this help?
 
-      Thanks for checking out this tutorial! If you have any feedback
+      Thanks for checking this tutorial out! If you have any feedback
       to share with us, we'd love to hear it.
       [Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
