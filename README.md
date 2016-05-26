@@ -1,11 +1,8 @@
 # Click to Call Rails
 
-An example application implementing Click to Call using Twilio.  For a
-step-by-step tutorial, [visit this link](https://twilio.com/docs/howto/click-to-call).
+An example application implementing Click to Call using Twilio.
 
-Deploy this example app to Heroku now!
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/ruby/rails)!
 
 ## Installation
 
@@ -17,68 +14,68 @@ Use Heroku to deploy this app immediately:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
 
-### Getting Started 
+### Getting Started
 
-1) Grab latest source
-<pre>
-git clone git://github.com/TwilioDevEd/clicktocall-rails.git 
-</pre>
+1. Grab the latest source
+```
+git clone git://github.com/TwilioDevEd/clicktocall-rails.git
+```
 
-2) Navigate to folder and create new Heroku Cedar app
-<pre>
+1. Navigate to folder and create new Heroku Cedar app
+```
 heroku create
-</pre>
+```
 
-3) Deploy to Heroku
-<pre>
+1. Deploy to Heroku
+```
 git push heroku master
-</pre>
+```
 
-4) Scale your dynos
-<pre>
+1. Scale your dynos
+```
 heroku scale web=1
-</pre>
+```
 
-5) Visit the home page of your new Heroku app to see your newly configured app!
-<pre>
+1. Visit the home page of your new Heroku app to see your newly configured app!
+```
 heroku open
-</pre>
+```
 
 
 ### Configuration
 
 #### Setting Your Environment Variables
 
-Are you using a bash shell? Use echo $SHELL to find out. For a bash shell, using the Gmail example, edit the ~/.bashrc or ~/.bashprofile file and add:
-<pre>
+Are you using a bash shell? Use echo $SHELL to find out. For a bash shell edit the ~/.bashrc or ~/.bashprofile file and add:
+```
 export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
 export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
 export TWILIO_NUMBER=+15556667777
-</pre>
+```
 
-Are you using Windows or Linux? You can read how to set variables [here](https://www.java.com/en/download/help/path.xml).
+Are you using Windows or Linux? You can read more on how to set variables [here](https://www.java.com/en/download/help/path.xml).
 
 ### Development
 
-Getting your local environment setup to work with this app is similarly
-easy.  After you configure your app with the steps above, use this guide to
+Getting your local environment setup to work with this app is easy.  
+After you configure your app with the steps above use this guide to
 get going locally:
 
-1) Install the dependencies.
-<pre>
+1. Install the dependencies
+```
 bundle install
-</pre>
+```
 
-2) Launch local development webserver
-<pre>
+1. Launch local development webserver
+```
 rails server
-</pre>
+```
 
-3) Open browser to [http://localhost:3000](http://localhost:3000).
+1. Open browser to [http://localhost:3000](http://localhost:3000).
 
-4) Tweak away on `app/controllers/twilio_controller.rb`.
+1. Tweak away on `app/controllers/twilio_controller.rb`.
 
-## Meta 
+## Meta
 
 * No warranty expressed or implied.  Software is as is. Diggity.
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)
