@@ -17,26 +17,31 @@ Use Heroku to deploy this app immediately:
 ### Getting Started
 
 1. Grab the latest source
+
 ```
 git clone git://github.com/TwilioDevEd/clicktocall-rails.git
 ```
 
 1. Navigate to folder and create new Heroku Cedar app
+
 ```
 heroku create
 ```
 
 1. Deploy to Heroku
+
 ```
 git push heroku master
 ```
 
 1. Scale your dynos
+
 ```
 heroku scale web=1
 ```
 
 1. Visit the home page of your new Heroku app to see your newly configured app!
+
 ```
 heroku open
 ```
@@ -62,18 +67,20 @@ After you configure your app with the steps above use this guide to
 get going locally:
 
 1. Install the dependencies
+
 ```
 bundle install
 ```
 
 1. Launch local development webserver
+
 ```
 rails server
 ```
 
-1. Open browser to [http://localhost:3000](http://localhost:3000).
+1. Open browser to [http://localhost:3000](http://localhost:3000)
 
-1. Tweak away on `app/controllers/twilio_controller.rb`.
+1. Tweak away on `app/controllers/twilio_controller.rb`
 
 ## Meta
 
