@@ -14,7 +14,8 @@ class TwilioControllerTest < ActionController::TestCase
     calls = Minitest::Mock.new
     calls.expect(:create, true, [{:from => twilio_number, :to => to_number, :url => 'http://test.host/connect'}])
     client.expect(:calls, calls)
-    TwilioController.class_variable_set(:@@twilio_number, twilio_number)
+
+    ENV["TWILIO_NUMBER"] = twilio_number
     Twilio::REST::Client.stub :new, client do
       post :call, :phone => to_number, :format => 'json'
 
@@ -44,9 +45,11 @@ class TwilioControllerTest < ActionController::TestCase
 
   test "should succeed with real Twilio request" do
     # Mock the validator so that we don't have to use a real signature here.
+    ENV['TWILIO_AUTH_TOKEN'] = 'auth-token'
+
     validator = Minitest::Mock.new
     validator.expect(:validate, true, [String, Hash, String])
-    Twilio::Util::RequestValidator.stub(:new, validator) do
+    Twilio::Security::RequestValidator.stub(:new, validator) do
       @request.env['HTTP_X_TWILIO_SIGNATURE'] = "REAL_SIGNATURE"
       post :connect, 'from' => '15008675309', 'to' => '12066505813'
 
