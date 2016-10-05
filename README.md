@@ -41,9 +41,9 @@ This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
    Run `source .env` to export the environment variables.
 
 1. Expose your application to the wider internet using ngrok. You can click
-   [here](#expose-the-application-to-the-wider-internet) for more details. This step
-   is important because the application won't work as expected if you run it through
-   localhost.
+   [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html)
+   for more details. This step is important because the application won't
+   work as expected if you run it through localhost.
 
    ```bash
    $ ngrok http 3000
