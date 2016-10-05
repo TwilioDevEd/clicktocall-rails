@@ -36,7 +36,10 @@
       **See Also:**
       * [Twilio Ruby Helper Library](//www.twilio.com/docs/ruby/install)
 
-  .step(data-title='Environment', data-file='app/controllers/twilio_controller.rb', data-highlight="10-13")
+  .step(
+    data-title='Environment',
+    data-file='app/controllers/twilio_controller.rb',
+    data-highlight="9-13")
     :markdown
       ## Environment
 
@@ -48,9 +51,12 @@
       You can find your Twilio credentials in your [Account Dashboard](//www.twilio.com/user/account).
 
       For more instructions on how to run the application refer to the [app's
-      readme file](//github.com/TwilioDevEd/clicktocall-rails/blob/master/README.md).
+      README file](//github.com/TwilioDevEd/clicktocall-rails/blob/master/README.md).
 
-  .step(data-title="The Web Form", data-file='app/views/twilio/index.erb', data-highlight="20-31")
+  .step(
+    data-title="The Web Form",
+    data-file='app/views/twilio/index.erb',
+    data-highlight="20-31")
     :markdown
       ## The Web Form
 
@@ -63,7 +69,10 @@
       on submit, we decided to implement the POST action via Ajax using jQuery.
       Let's take a look at it.
 
-  .step(data-title='Submitting the Form', data-file='app/assets/javascripts/app.js', data-highlight="11-30")
+  .step(
+    data-title='Submitting the Form',
+    data-file='app/assets/javascripts/app.js',
+    data-highlight="11-30")
     :markdown
       ## Submitting the Form
 
@@ -79,14 +88,31 @@
 
       Now that we have the front-end done, let's build a controller that will receive this data and call the user.
 
-  .step(data-title='Initiating the Client Object', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
+  .step(
+    data-title='Initiating the Client Object',
+    data-file='app/controllers/twilio_controller.rb',
+    data-highlight="21-30")
     :markdown
       ## Initiating the Client Object
 
-      First we initiate a `@client` object with our Account SID and Auth Token. This is essentially our Ruby REST API handler, which we could use to send SMS or a myriad of other things. But for
-      now we just need it to get access to an `account.calls`, which is the object that we're going to use to create phone calls.
+      First we initiate a `@client` object with our Account SID and Auth Token.
+      This is essentially our Ruby REST API handler, which we could use to send
+      SMS or a myriad of other things. But for now we just need it to get access
+      to an `account.calls`, which is the object that we're going to use to
+      create phone calls.
 
-  .step(data-title='Making a Phone Call', data-file='app/controllers/twilio_controller.rb', data-highlight="28-38")
+      ---
+
+      **See Also:**
+      * [REST API: Making Calls](//www.twilio.com/docs/api/rest/making-calls#code-make-an-outbound-call-to-a-twilio-client-endpoint)
+
+
+
+
+  .step(
+    data-title='Making a Phone Call',
+    data-file='app/controllers/twilio_controller.rb',
+    data-highlight="21-30")
     :markdown
       ## Making a Phone Call
 
@@ -99,15 +125,20 @@
       [voice]: /docs/api/rest/making-calls
       [url]: /docs/api/rest/making-calls#url-parameter
 
-  .step(data-title='The connect endpoint', data-file='app/controllers/twilio_controller.rb', data-highlight="49-60")
+  .step(
+    data-title='The Connect Endpoint',
+    data-file='app/controllers/twilio_controller.rb',
+    data-highlight="42-53")
     :markdown
-      ## The connect endpoint
+      ## The Connect Endpoint
 
       Twilio makes a request to our application when the call is created using the REST API. This
       means that we need to create an endpoint that is publicly available for Internet requests.
 
-  .step(data-title='Validating a Twilio Request', data-file='app/controllers/twilio_controller.rb',
-    data-highlight='68-84')
+  .step(
+    data-title='Validating a Twilio Request',
+    data-file='app/controllers/twilio_controller.rb',
+    data-highlight='56-77')
     :markdown
       ## Validating a Twilio Request
 
@@ -124,7 +155,10 @@
       **See Also:**
       * [Twilio Request Validator](http://twilio-ruby.readthedocs.io/en/latest/usage/validation.html)
 
-  .step(data-title='Generating TwiML', data-file='app/controllers/twilio_controller.rb', data-highlight='57')
+  .step(
+    data-title='Generating TwiML',
+    data-file='app/controllers/twilio_controller.rb',
+    data-highlight='49')
     :markdown
       ## Generating TwiML
 
