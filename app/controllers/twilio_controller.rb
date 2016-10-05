@@ -3,14 +3,8 @@ require 'twilio-ruby'
 class TwilioController < ApplicationController
   # Before we allow the incoming request to connect, verify
   # that it is a Twilio request
-  before_filter :authenticate_twilio_request, :only => [
-    :connect
-  ]
-
-  # Define our Twilio credentials as instance variables for later use
-  @@twilio_sid = ENV['TWILIO_ACCOUNT_SID']
-  @@twilio_token = ENV['TWILIO_AUTH_TOKEN']
-  @@twilio_number = ENV['TWILIO_NUMBER']
+  before_action :load_credentials, only: [:call, :connect]
+  before_action :authenticate_twilio_request, only: [:connect]
 
   # Render home page
   def index
@@ -24,25 +18,24 @@ class TwilioController < ApplicationController
 
     # Validate contact
     if contact.valid?
-
-      @client = Twilio::REST::Client.new @@twilio_sid, @@twilio_token
+      @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
       # Connect an outbound call to the number submitted
       @call = @client.calls.create(
-        :from => @@twilio_number,
-        :to => contact.phone,
-        :url => connect_url # Fetch instructions from this URL when the call connects
+        to:   contact.phone,
+        from: @twilio_number,
+        url:  connect_url # Fetch instructions from this URL when the call connects
       )
 
       # Let's respond to the ajax call with some positive reinforcement
-      @msg = { :message => 'Phone call incoming!', :status => 'ok' }
-
+      @msg = { message: 'Phone call incoming!', status: 'ok' }
     else
 
       # Oops there was an error, lets return the validation errors
-      @msg = { :message => contact.errors.full_messages, :status => 'ok' }
+      @msg = { message: contact.errors.full_messages, status: 'ok' }
     end
+
     respond_to do |format|
-      format.json { render :json => @msg }
+      format.json { render json: @msg }
     end
   end
 
@@ -53,8 +46,9 @@ class TwilioController < ApplicationController
     # format. Our Ruby library provides a helper for generating one
     # of these documents
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', :voice => 'alice'
+      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', voice: 'alice'
     end
+
     render text: response.text
   end
 
@@ -64,22 +58,28 @@ class TwilioController < ApplicationController
   # http://twilio-ruby.readthedocs.org/en/latest/usage/validation.html
   # Read more on Twilio Security at https://www.twilio.com/docs/security
   private
-  def authenticate_twilio_request
-    twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
 
+  def authenticate_twilio_request
     # Helper from twilio-ruby to validate requests.
-    @validator = Twilio::Util::RequestValidator.new(@@twilio_token)
+    @validator = Twilio::Security::RequestValidator.new(@twilio_token)
 
     # the POST variables attached to the request (eg "From", "To")
     # Twilio requests only accept lowercase letters. So scrub here:
     post_vars = params.reject {|k, v| k.downcase == k}
+    twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
 
     is_twilio_req = @validator.validate(request.url, post_vars, twilio_signature)
 
     unless is_twilio_req
-      render :xml => (Twilio::TwiML::Response.new {|r| r.Hangup}).text, :status => :unauthorized
+      render xml: (Twilio::TwiML::Response.new { |r| r.Hangup }).text, status: :unauthorized
       false
     end
   end
 
+  def load_credentials
+    # Define our Twilio credentials as instance variables for later use
+    @twilio_sid = ENV['TWILIO_ACCOUNT_SID']
+    @twilio_token = ENV['TWILIO_AUTH_TOKEN']
+    @twilio_number = ENV['TWILIO_NUMBER']
+  end
 end

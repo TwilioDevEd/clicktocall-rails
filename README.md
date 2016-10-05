@@ -1,79 +1,66 @@
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
 # Click to Call Rails
 
-An example application implementing Click to Call using Twilio.
+[![Build Status](https://travis-ci.org/TwilioDevEd/clicktocall-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/clicktocall-rails)
 
-[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/ruby/rails)!
+Click-to-call enables your company to convert web traffic into phone calls with
+the click of a button. Learn how to implement it in minutes.
 
-## Installation
+[Read the full tutorial here!](https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/ruby/rails)
 
-Step-by-step on how to deploy, configure and develop on this example app.
-
-### Fastest Deploy
+## Fastest Deploy
 
 Use Heroku to deploy this app immediately:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
 
-### Getting Started
+## Local development
 
-1. Grab the latest source
-```
-git clone git://github.com/TwilioDevEd/clicktocall-rails.git
-```
+This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
 
-1. Navigate to folder and create new Heroku Cedar app
-```
-heroku create
-```
+1. First clone this repository and `cd` into it.
 
-1. Deploy to Heroku
-```
-git push heroku master
-```
+   ```bash
+   $ git clone git://github.com/TwilioDevEd/clicktocall-rails.git
+   $ cd clicktocall-rails
+   ```
 
-1. Scale your dynos
-```
-heroku scale web=1
-```
+1. Install the dependencies.
 
-1. Visit the home page of your new Heroku app to see your newly configured app!
-```
-heroku open
-```
+   ```bash
+   $ bundle install
+   ```
 
+1. Copy the `.env.example` file to `.env`, and edit it including your credentials
+   for the Twilio API (found at https://www.twilio.com/console/account/settings). You
+   will also need a [Twilio Number](https://www.twilio.com/console/phone-numbers/incoming).
 
-### Configuration
+   Run `source .env` to export the environment variables.
 
-#### Setting Your Environment Variables
+1. Expose your application to the wider internet using ngrok. You can click
+   [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html)
+   for more details. This step is important because the application won't
+   work as expected if you run it through localhost.
 
-Are you using a bash shell? Use echo $SHELL to find out. For a bash shell edit the ~/.bashrc or ~/.bashprofile file and add:
-```
-export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
-export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
-export TWILIO_NUMBER=+15556667777
-```
+   ```bash
+   $ ngrok http 3000
+   ```
 
-Are you using Windows or Linux? You can read more on how to set variables [here](https://www.java.com/en/download/help/path.xml).
+1. Start the development server:
 
-### Development
+   ```
+   $ bundle exec rails s
+   ```
 
-Getting your local environment setup to work with this app is easy.  
-After you configure your app with the steps above use this guide to
-get going locally:
+## How to Demo?
 
-1. Install the dependencies
-```
-bundle install
-```
+1. Once ngrok is running, open up your browser and go to your ngrok URL. It will
+   look like this: `http://<ngrok-subdomain>.ngrok.io`.
 
-1. Launch local development webserver
-```
-rails server
-```
-
-1. Open browser to [http://localhost:3000](http://localhost:3000).
-
-1. Tweak away on `app/controllers/twilio_controller.rb`.
+2. Enter a number in the box provided and click “Call Sales” to initiate a call.
 
 ## Meta
 
