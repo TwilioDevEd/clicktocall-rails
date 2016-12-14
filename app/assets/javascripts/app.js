@@ -1,6 +1,6 @@
 // Execute JavaScript on page load
 $(function() {
-    $('#phoneNumber').intlTelInput({
+    $('#userNumber, #salesNumber').intlTelInput({
         responsiveDropdown: true,
         autoFormat: true,
         utilsScript: 'assets/intl-phone/libphonenumber/build/utils.js'
