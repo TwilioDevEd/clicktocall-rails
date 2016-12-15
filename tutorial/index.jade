@@ -56,18 +56,18 @@
   .step(
     data-title="The Web Form",
     data-file='app/views/twilio/index.erb',
-    data-highlight="20-31")
+    data-highlight="20-38")
     :markdown
       ## The Web Form
 
-      The first step on creating a real click-to-call solution is by building the form that your
-      user needs to fill on the web. No need to overthink this, the real goal is to POST the User's
-      phone number to your controller.
+      The first step to create a real click-to-call solution is by building the form that your
+      user needs to fill on the web. No need to overthink this, the real goal is to POST the user's and sales
+      team's phone numbers to your controller.
 
-      So what information does this form need? An input for the phone number and
-      a submit button. Since the page doesn't need to render new content after clicking
-      on submit, we decided to implement the POST action via Ajax using jQuery.
-      Let's take a look at it.
+      So what information does this form need? An input for the phone number, another for the sales team number and
+      a submit button. Since the page doesn't need to render new content after clicking, we decided to
+      implement the POST action via Ajax using jQuery. Let's take a look at it.
+
 
   .step(
     data-title='Submitting the Form',
@@ -91,7 +91,7 @@
   .step(
     data-title='Initiating the Client Object',
     data-file='app/controllers/twilio_controller.rb',
-    data-highlight="21-30")
+    data-highlight="22-31")
     :markdown
       ## Initiating the Client Object
 
@@ -106,13 +106,10 @@
       **See Also:**
       * [REST API: Making Calls](//www.twilio.com/docs/api/rest/making-calls#code-make-an-outbound-call-to-a-twilio-client-endpoint)
 
-
-
-
   .step(
     data-title='Making a Phone Call',
     data-file='app/controllers/twilio_controller.rb',
-    data-highlight="21-30")
+    data-highlight="22-31")
     :markdown
       ## Making a Phone Call
 
@@ -128,7 +125,7 @@
   .step(
     data-title='The Connect Endpoint',
     data-file='app/controllers/twilio_controller.rb',
-    data-highlight="42-53")
+    data-highlight="43-56")
     :markdown
       ## The Connect Endpoint
 
@@ -138,7 +135,7 @@
   .step(
     data-title='Validating a Twilio Request',
     data-file='app/controllers/twilio_controller.rb',
-    data-highlight='56-77')
+    data-highlight='64-79')
     :markdown
       ## Validating a Twilio Request
 
@@ -158,14 +155,13 @@
   .step(
     data-title='Generating TwiML',
     data-file='app/controllers/twilio_controller.rb',
-    data-highlight='49')
+    data-highlight='49-53')
     :markdown
       ## Generating TwiML
 
       TwiML is a set of [simple verbs][verbs] written in XML that Twilio reads as instructions.
-      In this case our instructions inform Twilio to simply SAY something to the user. If we wanted
-      to connect the user to a real support agent, we would have to add a
-      [Dial verb](//www.twilio.com/docs/api/twiml/dial) that specifies the support agent number
+      In this case our instructions inform Twilio to [SAY](https://www.twilio.com/docs/api/twiml/say)
+      something to the user and then  [DIAL](//www.twilio.com/docs/api/twiml/dial) the support agent's number
       so the customer can talk to him/her.
 
       In order to make writing TwiML easy, many of the helper libraries have methods that generate
