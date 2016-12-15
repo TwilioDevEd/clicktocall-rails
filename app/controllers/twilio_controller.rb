@@ -14,16 +14,17 @@ class TwilioController < ApplicationController
   # Handle a POST from our web form and connect a call via REST API
   def call
     contact = Contact.new
-    contact.phone = params[:phone]
+    contact.user_phone  = params[:userPhone]
+    contact.sales_phone = params[:salesPhone]
 
     # Validate contact
     if contact.valid?
       @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
       # Connect an outbound call to the number submitted
       @call = @client.calls.create(
-        to:   contact.phone,
-        from: @twilio_number,
-        url:  connect_url # Fetch instructions from this URL when the call connects
+        :to => contact.user_phone,
+        :from => @@twilio_number,
+        :url => "#{connect_url}/#{contact.encoded_sales_phone}" # Fetch instructions from this URL when the call connects
       )
 
       # Let's respond to the ajax call with some positive reinforcement
@@ -46,7 +47,9 @@ class TwilioController < ApplicationController
     # format. Our Ruby library provides a helper for generating one
     # of these documents
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', voice: 'alice'
+      r.Say 'Thanks for contacting our sales department. Our ' +
+        'next available representative will take your call.', voice: 'alice'
+      r.Dial params[:sales_number]
     end
 
     render text: response.text
@@ -58,7 +61,6 @@ class TwilioController < ApplicationController
   # http://twilio-ruby.readthedocs.org/en/latest/usage/validation.html
   # Read more on Twilio Security at https://www.twilio.com/docs/security
   private
-
   def authenticate_twilio_request
     # Helper from twilio-ruby to validate requests.
     @validator = Twilio::Security::RequestValidator.new(@twilio_token)
