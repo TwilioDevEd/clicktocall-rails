@@ -11,6 +11,7 @@ class TwilioController < ApplicationController
   @@twilio_sid = ENV['TWILIO_ACCOUNT_SID']
   @@twilio_token = ENV['TWILIO_AUTH_TOKEN']
   @@twilio_number = ENV['TWILIO_NUMBER']
+  @@api_host = ENV['API_HOST']
 
   # Render home page
   def index
@@ -31,7 +32,7 @@ class TwilioController < ApplicationController
       @call = @client.calls.create(
         :from => @@twilio_number,
         :to => contact.user_phone,
-        :url => "#{connect_url}/#{contact.encoded_sales_phone}" # Fetch instructions from this URL when the call connects
+        :url => "#{@@api_host}/connect/#{contact.encoded_sales_phone}" # Fetch instructions from this URL when the call connects
       )
 
       # Let's respond to the ajax call with some positive reinforcement

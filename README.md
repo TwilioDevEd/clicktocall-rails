@@ -56,6 +56,7 @@ Are you using a bash shell? Use echo $SHELL to find out. For a bash shell edit t
 export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
 export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
 export TWILIO_NUMBER=+15556667777
+export API_HOST=https://example.herokuapp.com
 ```
 
 Are you using Windows or Linux? You can read more on how to set variables [here](https://www.java.com/en/download/help/path.xml).
