@@ -14,16 +14,17 @@ class TwilioController < ApplicationController
   # Handle a POST from our web form and connect a call via REST API
   def call
     contact = Contact.new
-    contact.phone = params[:phone]
+    contact.user_phone  = params[:userPhone]
+    contact.sales_phone = params[:salesPhone]
 
     # Validate contact
     if contact.valid?
       @client = Twilio::REST::Client.new @twilio_sid, @twilio_token
       # Connect an outbound call to the number submitted
       @call = @client.calls.create(
-        to:   contact.phone,
+        to:   contact.user_phone,
         from: @twilio_number,
-        url:  connect_url # Fetch instructions from this URL when the call connects
+        url: "#{@api_host}/connect/#{contact.encoded_sales_phone}" # Fetch instructions from this URL when the call connects
       )
 
       # Let's respond to the ajax call with some positive reinforcement
@@ -46,12 +47,13 @@ class TwilioController < ApplicationController
     # format. Our Ruby library provides a helper for generating one
     # of these documents
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'If this were a real click to call implementation, you would be connected to an agent at this point.', voice: 'alice'
+      r.Say 'Thanks for contacting our sales department. Our '\
+        'next available representative will take your call.', voice: 'alice'
+      r.Dial params[:sales_number]
     end
 
     render text: response.text
   end
-
 
   # Authenticate that all requests to our public-facing TwiML pages are
   # coming from Twilio. Adapted from the example at
@@ -60,20 +62,21 @@ class TwilioController < ApplicationController
   private
 
   def authenticate_twilio_request
+    return if twilio_req?
+    render xml: Twilio::TwiML::Response.new(&:Hangup).text, status: :unauthorized
+    false
+  end
+
+  def twilio_req?
     # Helper from twilio-ruby to validate requests.
-    @validator = Twilio::Security::RequestValidator.new(@twilio_token)
+    validator = Twilio::Security::RequestValidator.new(@twilio_token)
 
     # the POST variables attached to the request (eg "From", "To")
     # Twilio requests only accept lowercase letters. So scrub here:
-    post_vars = params.reject {|k, v| k.downcase == k}
+    post_vars = params.reject { |k, _| k.downcase == k }
     twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
 
-    is_twilio_req = @validator.validate(request.url, post_vars, twilio_signature)
-
-    unless is_twilio_req
-      render xml: (Twilio::TwiML::Response.new { |r| r.Hangup }).text, status: :unauthorized
-      false
-    end
+    validator.validate(request.url, post_vars, twilio_signature)
   end
 
   def load_credentials
@@ -81,5 +84,6 @@ class TwilioController < ApplicationController
     @twilio_sid = ENV['TWILIO_ACCOUNT_SID']
     @twilio_token = ENV['TWILIO_AUTH_TOKEN']
     @twilio_number = ENV['TWILIO_NUMBER']
+    @api_host = ENV['API_HOST']
   end
 end

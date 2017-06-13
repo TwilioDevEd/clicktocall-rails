@@ -33,6 +33,9 @@ This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
    ```bash
    $ bundle install
    ```
+Are you using a bash shell? Use echo $SHELL to find out. For a bash shell edit the ~/.bashrc or ~/.bashprofile file and add:
+
+## Configuration
 
 1. Copy the `.env.example` file to `.env`, and edit it including your credentials
    for the Twilio API (found at https://www.twilio.com/console/account/settings). You
