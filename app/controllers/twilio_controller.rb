@@ -46,13 +46,12 @@ class TwilioController < ApplicationController
     # Our response to this request will be an XML document in the "TwiML"
     # format. Our Ruby library provides a helper for generating one
     # of these documents
-    response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Thanks for contacting our sales department. Our '\
-        'next available representative will take your call.', voice: 'alice'
-      r.Dial params[:sales_number]
-    end
+    response = Twilio::TwiML::VoiceResponse.new
+    response.say('Thanks for contacting our sales department. Our '\
+        'next available representative will take your call.', voice: 'alice')
+    response.dial params[:sales_number]
 
-    render text: response.text
+    render text: response.to_xml_str
   end
 
   # Authenticate that all requests to our public-facing TwiML pages are
@@ -63,7 +62,9 @@ class TwilioController < ApplicationController
 
   def authenticate_twilio_request
     return if twilio_req?
-    render xml: Twilio::TwiML::Response.new(&:Hangup).text, status: :unauthorized
+    response = Twilio::TwiML::VoiceResponse.new
+    response.hangup
+    render xml: response.to_xml_str, status: :unauthorized
     false
   end
 
