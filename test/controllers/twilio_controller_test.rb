@@ -7,16 +7,21 @@ class TwilioControllerTest < ActionController::TestCase
   end
 
   test 'should initiate a call with a real phone number' do
-    twilio_number = '15008675309'
-    to_number = '12066505813'
+    twilio_number = '15008675308'
+    user_phone = '12066505812'
+    sales_phone = '12066505813'
+    api_host = 'http://test.host'
     client = Minitest::Mock.new
     calls = Minitest::Mock.new
-    calls.expect(:create, true, [{ from: twilio_number, to: to_number, url: 'http://test.host/connect' }])
+    calls.expect(:create, true, [{ from: twilio_number,
+                                   to: user_phone,
+                                   url: "#{api_host}/connect/#{sales_phone}"}])
     client.expect(:calls, calls)
 
     ENV['TWILIO_NUMBER'] = twilio_number
+    ENV['API_HOST'] = api_host
     Twilio::REST::Client.stub :new, client do
-      post :call, phone: to_number, format: 'json'
+      post :call, userPhone: user_phone, salesPhone: sales_phone, format: 'json'
 
       assert_response :ok
       json = JSON.parse(response.body)
@@ -29,17 +34,18 @@ class TwilioControllerTest < ActionController::TestCase
   end
 
   test 'should return a failure with a non real phone number' do
-    post :call, phone: 'blah', format: 'json'
+    post :call, userPhone: 'blah', salesPhone: 'blah', format: 'json'
 
     assert_response :ok
     json = JSON.parse(response.body)
     assert_equal 'ok', json['status']
-    assert_equal ['Phone is an invalid number'], json['message']
+    assert_equal ['User phone is an invalid number',
+                  'Sales phone is an invalid number'], json['message']
   end
 
   test 'should fail as fake Twilio request' do
     @request.env['HTTP_X_TWILIO_SIGNATURE'] = 'FAKE_SIGNATURE'
-    post :connect, from: '15008675309', to: '12066505813'
+    post :connect, sales_number: '12066505813'
     assert_response 401 # Unauthorized
   end
 
@@ -49,7 +55,7 @@ class TwilioControllerTest < ActionController::TestCase
     validator.expect(:validate, true, [String, Hash, String])
     Twilio::Security::RequestValidator.stub(:new, validator) do
       @request.env['HTTP_X_TWILIO_SIGNATURE'] = 'REAL_SIGNATURE'
-      post :connect, from: '15008675309', to: '12066505813'
+      post :connect, sales_number: '12066505813'
 
       assert_response :ok
       assert response.body.match(/<Say voice="alice">/)
