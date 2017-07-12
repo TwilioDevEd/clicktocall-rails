@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'pry'
 
 class TwilioController < ApplicationController
   # Before we allow the incoming request to connect, verify
@@ -49,10 +50,11 @@ class TwilioController < ApplicationController
     response = Twilio::TwiML::VoiceResponse.new do |r|
       r.say('Thanks for contacting our sales department. Our '\
         'next available representative will take your call.', voice: 'alice')
-      r.dial params[:sales_number]
+      r.dial number: params[:sales_number]
     end
 
-    render text: response.to_s
+
+    render xml: response.to_s
   end
 
   # Authenticate that all requests to our public-facing TwiML pages are
@@ -62,13 +64,16 @@ class TwilioController < ApplicationController
   private
 
   def authenticate_twilio_request
-    return if twilio_req?
-    response = Twilio::TwiML::VoiceResponse.new do|r|
-      r.hangup
-    end
+    if twilio_req?
+      return true
+    else
+      response = Twilio::TwiML::VoiceResponse.new do|r|
+        r.hangup
+      end
 
-    render xml: response.to_s, status: :unauthorized
-    false
+      render xml: response.to_s, status: :unauthorized
+      false
+    end
   end
 
   def twilio_req?
