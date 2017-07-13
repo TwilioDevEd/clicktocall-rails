@@ -15,5 +15,5 @@
 /log/*.log
 /tmp
 .DS_Store
-
 .env
+.ruby-version
