@@ -16,7 +16,7 @@ gem 'jbuilder', '~> 2.0'
 # Validate phone numbers easily
 gem 'phony_rails'
 # Twilio REST API.
-gem 'twilio-ruby', '~> 5.0.0.rc26'
+gem 'twilio-ruby', '~> 5.0.0'
 
 group :development, :test do
   gem 'sqlite3'
