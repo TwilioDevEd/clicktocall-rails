@@ -11,12 +11,6 @@ the click of a button. Learn how to implement it in minutes.
 
 [Read the full tutorial here!](https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/ruby/rails)
 
-## Fastest Deploy
-
-Use Heroku to deploy this app immediately:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-rails)
-
 ## Local development
 
 This project is built using [Ruby on Rails](http://rubyonrails.org/) Framework.
