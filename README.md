@@ -6,6 +6,8 @@
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/clicktocall-rails.svg?branch=master)](https://travis-ci.org/TwilioDevEd/clicktocall-rails)
 
+> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
+
 Click-to-call enables your company to convert web traffic into phone calls with
 the click of a button. Learn how to implement it in minutes.
 
