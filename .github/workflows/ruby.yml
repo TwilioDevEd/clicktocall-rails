@@ -1,0 +1,33 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup System
+      run: |
+        sudo apt-get install libsqlite3-dev
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Build and test with minitest
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Test
+      run: bundle exec rails test
+      env:
+        TWILIO_ACCOUNT_SID: AC2XXXXXXXX
+        TWILIO_AUTH_TOKEN: TWILIO-AUTH-TOKEN
+        API_HOST: https://example.herokuapp.com
+        TWILIO_NUMBER: +15551230987

@@ -1,5 +1,4 @@
 require 'twilio-ruby'
-require 'pry'
 
 class TwilioController < ApplicationController
   # Before we allow the incoming request to connect, verify
@@ -47,12 +46,12 @@ class TwilioController < ApplicationController
     # Our response to this request will be an XML document in the "TwiML"
     # format. Our Ruby library provides a helper for generating one
     # of these documents
+
     response = Twilio::TwiML::VoiceResponse.new do |r|
-      r.say('Thanks for contacting our sales department. Our '\
+      r.say(message: 'Thanks for contacting our sales department. Our '\
         'next available representative will take your call.', voice: 'alice')
       r.dial number: params[:sales_number]
     end
-
 
     render xml: response.to_s
   end
