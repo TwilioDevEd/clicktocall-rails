@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'twilio-ruby'
+require 'pry'
 
 class TwilioController < ApplicationController
   # Before we allow the incoming request to connect, verify
