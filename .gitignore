@@ -18,3 +18,4 @@
 .env
 .ruby-version
 /vendor/bundle
+.tool-versions
