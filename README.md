@@ -48,13 +48,13 @@ Before we begin, we need to collect all the config values we need to run the app
    cd clicktocall-rails
    ```
 
-1. Install the dependencies.
+2. Install the dependencies.
 
    ```bash
    make install
    ```
 
-1. Set your environment variables.
+3. Set your environment variables.
 
    ```bash
    cp .env.example .env
@@ -62,22 +62,31 @@ Before we begin, we need to collect all the config values we need to run the app
 
    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables. The phone number should be in [E.164 format](https://www.twilio.com/help/faq/phone-numbers/how-do-i-format-phone-numbers-to-work-internationally).
 
-1. Start the development server (will run on port 3000).
+4. Start the development server (will run on port 3000).
 
    ```bash
    make serve
    ```
 
-1. Expose your application to the wider internet using ngrok. You can click [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html) for more details. This step **is important** because the application won't work as expected if you run it through localhost.
+5. Expose your application to the wider internet using ngrok. You can click [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html) for more details. This step **is important** because the application won't work as expected if you run it through localhost.
 
    ```bash
    ngrok http 3000
    ```
 
-1. Once ngrok is running, open up your browser and go to your ngrok URL. It will look like this: `http://<ngrok-subdomain>.ngrok.io`
+6. Once ngrok is running, open up your browser and go to your ngrok URL. It will look like this: `http://<ngrok-subdomain>.ngrok.io`
 Then, enter a number in the box provided and click "Contact Sales" to initiate a call.
 
 That's it!
+
+### Docker
+
+If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
+
+1. Make sure you have the project cloned.
+2. Setup the `.env` file as outlined in the [Local Development](#local-development) steps.
+3. Run `docker-compose up`.
+4. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using a tool like ngrok and configure the remaining parts of your application.
 
 ### Tests
 
