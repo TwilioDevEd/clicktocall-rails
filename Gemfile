@@ -32,3 +32,5 @@ end
 group :production do
   gem 'pg'
 end
+
+gem 'tzinfo-data', '~> 1.2020', '>= 1.2020.1'
