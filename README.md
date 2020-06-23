@@ -27,6 +27,7 @@ Implementations in other languages:
 
 - [Ruby](https://www.ruby-lang.org/) **2.6.x** version
 - [Sqlite3](https://www.sqlite.org/)
+- [Node.js](https://nodejs.org/en/) **10.x** or **12.x** version
 
 ### Twilio Account Settings
 
@@ -62,19 +63,24 @@ Before we begin, we need to collect all the config values we need to run the app
 
    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables. The phone number should be in [E.164 format](https://www.twilio.com/help/faq/phone-numbers/how-do-i-format-phone-numbers-to-work-internationally).
 
-4. Start the development server (will run on port 3000).
+4. Setup server
+   ```bash
+   make serve-setup
+   ```
+
+5. Start the development server (will run on port 3000).
 
    ```bash
    make serve
    ```
 
-5. Expose your application to the wider internet using ngrok. You can click [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html) for more details. This step **is important** because the application won't work as expected if you run it through localhost.
+6. Expose your application to the wider internet using ngrok. You can click [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html) for more details. This step **is important** because the application won't work as expected if you run it through localhost.
 
    ```bash
    ngrok http 3000
    ```
 
-6. Once ngrok is running, open up your browser and go to your ngrok URL. It will look like this: `http://<ngrok-subdomain>.ngrok.io`
+7. Once ngrok is running, open up your browser and go to your ngrok URL. It will look like this: `http://<ngrok-subdomain>.ngrok.io`
 Then, enter a number in the box provided and click "Contact Sales" to initiate a call.
 
 That's it!
@@ -86,7 +92,7 @@ If you have [Docker](https://www.docker.com/) already installed on your machine,
 1. Make sure you have the project cloned.
 2. Setup the `.env` file as outlined in the [Local Development](#local-development) steps.
 3. Run `docker-compose up`.
-4. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using a tool like ngrok and configure the remaining parts of your application.
+4. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using a tool like [ngrok](https://ngrok.com/) and configure the remaining parts of your application.
 
 ### Tests
 

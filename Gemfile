@@ -26,6 +26,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'listen'
   gem 'pry-rails'
 end
 
@@ -34,3 +35,5 @@ group :production do
 end
 
 gem 'tzinfo-data', '~> 1.2020', '>= 1.2020.1'
+
+gem "webpacker"
