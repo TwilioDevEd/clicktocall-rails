@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'mocha/mini_test'
 
 class TwilioControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
@@ -22,7 +21,7 @@ class TwilioControllerTest < ActionDispatch::IntegrationTest
     ENV['TWILIO_NUMBER'] = twilio_number
     ENV['API_HOST'] = api_host
     Twilio::REST::Client.stub :new, client do
-      post call_url, params: {userPhone: user_phone, salesPhone: sales_phone}, as: :json
+      post call_url, params: { userPhone: user_phone, salesPhone: sales_phone }, as: :json
 
       assert_response :ok
       json = JSON.parse(response.body)
@@ -35,7 +34,7 @@ class TwilioControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return a failure with a non real phone number' do
-    post call_url, params: {userPhone: 'blah', salesPhone: 'blah'}, as: :json
+    post call_url, params: { userPhone: 'blah', salesPhone: 'blah' }, as: :json
 
     assert_response :ok
     json = JSON.parse(response.body)
@@ -45,7 +44,7 @@ class TwilioControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should fail as fake Twilio request' do
-    post connect_url(sales_number: '12066505813'), headers: {'HTTP_X_TWILIO_SIGNATURE' => 'FAKE_SIGNATURE'}
+    post connect_url(sales_number: '12066505813'), headers: { 'HTTP_X_TWILIO_SIGNATURE' => 'FAKE_SIGNATURE' }
 
     assert_response 401 # Unauthorized
   end
@@ -55,7 +54,7 @@ class TwilioControllerTest < ActionDispatch::IntegrationTest
     validator = Minitest::Mock.new
     validator.expect(:validate, true, [String, ActionController::Parameters, String])
     Twilio::Security::RequestValidator.stubs(:new).returns(validator)
-    post connect_url(sales_number: '12066505813'), headers:{'HTTP_X_TWILIO_SIGNATURE' => 'REAL_SIGNATURE'}
+    post connect_url(sales_number: '12066505813'), headers: { 'HTTP_X_TWILIO_SIGNATURE' => 'REAL_SIGNATURE' }
 
     assert_response :ok
     assert response.body.match(/<Say voice="alice">/)
