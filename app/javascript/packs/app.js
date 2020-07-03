@@ -1,10 +1,6 @@
 // Execute JavaScript on page load
 $(function() {
-    $('#userPhone, #salesPhone').intlTelInput({
-        responsiveDropdown: true,
-        autoFormat: true,
-        utilsScript: 'assets/intl-phone/libphonenumber/build/utils.js'
-    });
+ 
     var $form = $('#contactform'),
         $submit = $('#contactform input[type=submit]');
 
@@ -15,6 +11,9 @@ $(function() {
         $submit.attr('disabled', 'disabled');
 
         // Submit the form via ajax
+        $("#userPhone").val(userPhone.getNumber());
+        $("#salesPhone").val(salesPhone.getNumber());
+        
         $.ajax({
             url:'/call',
             method:'POST',
