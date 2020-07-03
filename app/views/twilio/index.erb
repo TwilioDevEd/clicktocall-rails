@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" type="text/css">
     <%= stylesheet_link_tag 'application' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
     <div class="container">
@@ -26,13 +27,11 @@
             </div>
             <label>Your number</label>
              <div class="form-group">
-                 <input class="form-control" type="text" name="userPhone" id="userPhone"
-                        placeholder="(651) 555-7889">
+                 <input class="form-control" type="tel" name="userPhone" id="userPhone">
              </div>
              <label>Sales team number</label>
              <div class="form-group">
-                 <input class="form-control" type="text" name="salesPhone" id="salesPhone"
-                        placeholder="(651) 555-7889">
+                 <input class="form-control" type="tel" name="salesPhone" id="salesPhone">
              </div>
             <button type="submit" class="btn btn-default">Contact Sales</button>
           </form>
@@ -41,5 +40,19 @@
       </div>
 	  </div><!-- /page -->
 	</body>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script>
+    const userPhoneInput = document.querySelector("#userPhone");
+    const userPhone = window.intlTelInput(userPhoneInput, {
+        responsiveDropdown: true,
+        autoFormat: true,
+        utilsScript: 'packs/utils.js'
+    });
+
+    const salesPhoneInput = document.querySelector("#salesPhone");
+    const salesPhone = window.intlTelInput(salesPhoneInput, {
+        responsiveDropdown: true,
+        autoFormat: true,
+        utilsScript: 'packs/utils.js'
+    });
+  </script>
 </html>
