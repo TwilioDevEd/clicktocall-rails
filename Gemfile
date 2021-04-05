@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.1.3'
 
 gem 'dotenv-rails', groups: [:development, :test]
 # Use SCSS for stylesheets
@@ -18,7 +18,7 @@ gem 'jbuilder', '~> 2.10'
 # Validate phone numbers easily
 gem 'phony_rails'
 # Twilio REST API.
-gem 'twilio-ruby', '~> 5.33.1'
+gem 'twilio-ruby', '~> 5.46'
 
 group :development, :test do
   gem 'mocha'
