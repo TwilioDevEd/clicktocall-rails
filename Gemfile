@@ -20,6 +20,8 @@ gem 'phony_rails'
 # Twilio REST API.
 gem 'twilio-ruby', '~> 5.46'
 
+gem 'pry-rails'
+
 group :development, :test do
   gem 'mocha'
   gem 'sqlite3'
@@ -27,7 +29,6 @@ end
 
 group :development do
   gem 'listen'
-  gem 'pry-rails'
 end
 
 group :production do

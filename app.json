@@ -17,6 +17,10 @@
   "repository": "https://github.com/TwilioDevEd/clicktocall-rails",
   "logo": "https://s3-us-west-2.amazonaws.com/deved/twilio-logo.png",
   "success_url": "/landing.html",
+  "buildpacks": [
+    { "url": "heroku/nodejs" },
+    { "url": "heroku/ruby" }
+  ],
   "env": {
     "TWILIO_ACCOUNT_SID": {
       "description": "Your Twilio account secret ID, you can find at: https://www.twilio.com/user/account",
